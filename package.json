@@ -1,0 +1,17 @@
+{
+  "name": "gha-graphs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@actions/github": "6.0.0",
+    "@octokit/rest": "20.1.1",
+    "@types/node": "^20.14.2"
+  }
+}

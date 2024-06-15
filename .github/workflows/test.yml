@@ -1,0 +1,32 @@
+name: 🦊 Test action
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: some action that generates a value
+        id: generate
+        run: echo "some-value=12" >> $GITHUB_OUTPUT
+
+      - name: foo
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const script = require('./index.js')
+            return script(
+              {
+                github,
+                context,
+                branch: 'action-storage',
+                key: 'toto'
+              },
+              ${{ steps.generate.outputs.some-value }},
+            )

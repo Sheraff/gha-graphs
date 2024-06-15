@@ -1,0 +1,14 @@
+name: Store data
+inputs:
+  value:
+    description: The value to store
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: foo
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const script = require('./index.js')
+          return script({github, context}, '${{ (inputs.value.) }}')
