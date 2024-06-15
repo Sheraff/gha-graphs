@@ -182,7 +182,6 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 
 	// If the current branch is not the default branch, update the comparison file
 	if (!isDefaultBranch) {
-		console.log(`Current branch is not the default branch`, { defaultBranch, branch, currentBranch })
 		const path = `${ROOT}${key}/${defaultBranch}.json`
 		/** @type {ValueEntry[]} */
 		let defaultData = []
@@ -203,7 +202,6 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 				throw error
 			}
 		}
-		console.log(`Default data:`, defaultData.length)
 		if (defaultData.length) {
 			const svg = generateComparisonSvg(key, entry, defaultData)
 			if (svg) {
@@ -316,6 +314,7 @@ function generateEvolutionSvg(data) {
  */
 function generateComparisonSvg(key, data, defaultData) {
 	const latest = defaultData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).pop()
+	console.log({ latest })
 	if (!latest) return
 
 	const change = ((data.value - latest.value) / latest.value) * 100
