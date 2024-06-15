@@ -37,8 +37,10 @@
 export async function main({ github, context, core, branch, defaultBranch, key = 'value' }, value) {
 	const { owner, repo } = context.repo
 
-	// Get the name of the current branch
-	const currentBranch = context.ref.replace('refs/heads/', '')
+	// Get the name of the current branch, even if it's a pull request
+	const currentBranch = context.payload.pull_request
+		? context.payload.pull_request.head.ref
+		: context.ref.replace('refs/heads/', '')
 
 	// Get the repo's default branch
 	if (!defaultBranch) {
