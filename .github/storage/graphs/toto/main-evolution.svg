@@ -20,21 +20,21 @@
 			<text x="40" y="50" text-anchor="end" dominant-baseline="middle">12.00</text>
 		
 
-			<line x1="50" y1="130" x2="950" y2="130" stroke="lightgray" />
-			<text x="40" y="130" text-anchor="end" dominant-baseline="middle">10.20</text>
+			<line x1="50" y1="150" x2="950" y2="150" stroke="lightgray" />
+			<text x="40" y="150" text-anchor="end" dominant-baseline="middle">9.75</text>
 		
 
-			<line x1="50" y1="210" x2="950" y2="210" stroke="lightgray" />
-			<text x="40" y="210" text-anchor="end" dominant-baseline="middle">8.40</text>
+			<line x1="50" y1="250" x2="950" y2="250" stroke="lightgray" />
+			<text x="40" y="250" text-anchor="end" dominant-baseline="middle">7.50</text>
 		
 
-			<line x1="50" y1="290" x2="950" y2="290" stroke="lightgray" />
-			<text x="40" y="290" text-anchor="end" dominant-baseline="middle">6.60</text>
+			<line x1="50" y1="350" x2="950" y2="350" stroke="lightgray" />
+			<text x="40" y="350" text-anchor="end" dominant-baseline="middle">5.25</text>
 		
 
-			<line x1="50" y1="370" x2="950" y2="370" stroke="lightgray" />
-			<text x="40" y="370" text-anchor="end" dominant-baseline="middle">4.80</text>
+			<line x1="50" y1="450" x2="950" y2="450" stroke="lightgray" />
+			<text x="40" y="450" text-anchor="end" dominant-baseline="middle">3.00</text>
 		
-			<path d="M50,50L140,50L230,50L320,50L410,450L500,450L590,450L680,450L770,450L860,450L950,450" fill="none" stroke="black" stroke-width="2" />
+			<path d="M50,50L131.8181818181818,50L213.63636363636363,50L295.45454545454544,50L377.27272727272725,450L459.09090909090907,450L540.9090909090909,450L622.7272727272727,450L704.5454545454545,450L786.3636363636363,450L868.1818181818181,450L950,450" fill="none" stroke="black" stroke-width="2" />
 		</svg>
 	
