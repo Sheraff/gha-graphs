@@ -1,9 +1,9 @@
 
 
-
 /**
  * @typedef {import('@actions/github').context} Context
- * @typedef {import('@octokit/rest').Octokit} GitHub
+ * @typedef {import('@actions/core')} Core
+ * @typedef {ReturnType<import('@actions/github').getOctokit>} GitHub
  */
 
 /**
@@ -28,12 +28,13 @@
  * @param {object} params
  * @param {GitHub} params.github from GHA, the `github` object
  * @param {Context} params.context from GHA, the `context` object
+ * @param {Core} params.core from GHA, the `core` object
  * @param {string} params.branch the branch reserved for this workflow, to store data in
  * @param {string} [params.defaultBranch] the branch with which to track the value's evolution over time
  * @param {string} [params.key] the key to store the value under, useful if this workflow is used for multiple values
  * @param {number} value the value to store
  */
-export async function main({ github, context, branch, defaultBranch, key = 'value' }, value) {
+export async function main({ github, context, core, branch, defaultBranch, key = 'value' }, value) {
 	const { owner, repo } = context.repo
 
 	// Get the name of the current branch
@@ -41,7 +42,7 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 
 	// Get the repo's default branch
 	if (!defaultBranch) {
-		const { data: { default_branch } } = await github.repos.get({
+		const { data: { default_branch } } = await github.rest.repos.get({
 			owner,
 			repo,
 		})
@@ -53,7 +54,7 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 	/** @type {string | null} */
 	let ref = null
 	try {
-		const { data } = await github.git.getRef({
+		const { data } = await github.rest.git.getRef({
 			owner,
 			repo,
 			ref: `heads/${branch}`,
@@ -67,13 +68,13 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 
 	// Create branch if it doesn't exist
 	if (!ref) {
-		const { data: { object } } = await github.git.getRef({
+		const { data: { object } } = await github.rest.git.getRef({
 			owner,
 			repo,
 			ref: 'heads/main',
 		})
 
-		const { data } = await github.git.createRef({
+		const { data } = await github.rest.git.createRef({
 			owner,
 			repo,
 			ref: `refs/heads/${branch}`,
@@ -89,7 +90,7 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 	/** @type {ValueEntry[]} */
 	let branchData = []
 	try {
-		const { data } = await github.repos.getContent({
+		const { data } = await github.rest.repos.getContent({
 			owner,
 			repo,
 			path,
@@ -112,7 +113,7 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 	}
 
 	// Get timestamp associated with current sha
-	const { data: { committer } } = await github.git.getCommit({
+	const { data: { committer } } = await github.rest.git.getCommit({
 		owner,
 		repo,
 		commit_sha: context.sha,
@@ -127,7 +128,7 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 	const message = `Add ${key} to ${path}`
 	const content = Buffer.from(JSON.stringify(branchData)).toString('base64')
 
-	await github.repos.createOrUpdateFileContents({
+	await github.rest.repos.createOrUpdateFileContents({
 		owner,
 		repo,
 		path,
@@ -144,7 +145,7 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 		const evolutionPath = `'.github/storage/graphs/${key}/${defaultBranch}.svg'`
 		const evolutionMessage = `Update ${key} evolution graph`
 		const evolutionContent = Buffer.from(svg).toString('base64')
-		await github.repos.createOrUpdateFileContents({
+		await github.rest.repos.createOrUpdateFileContents({
 			owner,
 			repo,
 			path: evolutionPath,
@@ -154,6 +155,9 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 		})
 		const permalink = `https://github.com/${context.repo.owner}/${context.repo.repo}/blob/${branch}/${evolutionPath}`
 		console.log(`Evolution graph permalink: ${permalink}`)
+		core.notice(permalink, {
+			title: 'Evolution graph',
+		})
 	}
 
 	// If the current branch is not the default branch, update the comparison file
@@ -162,7 +166,7 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 		/** @type {ValueEntry[]} */
 		let defaultData = []
 		try {
-			const { data } = await github.repos.getContent({
+			const { data } = await github.rest.repos.getContent({
 				owner,
 				repo,
 				path,
@@ -189,7 +193,7 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 				const comparisonPath = `'.github/storage/graphs/${key}/${currentBranch}.svg'`
 				const comparisonMessage = `Update ${key} comparison graph`
 				const comparisonContent = Buffer.from(svg).toString('base64')
-				await github.repos.createOrUpdateFileContents({
+				await github.rest.repos.createOrUpdateFileContents({
 					owner,
 					repo,
 					content: comparisonContent,
@@ -198,6 +202,9 @@ export async function main({ github, context, branch, defaultBranch, key = 'valu
 				})
 				const permalink = `https://github.com/${context.repo.owner}/${context.repo.repo}/blob/${branch}/${comparisonPath}`
 				console.log(`Comparison graph permalink: ${permalink}`)
+				core.notice(permalink, {
+					title: 'Comparison graph',
+				})
 			}
 		}
 	}

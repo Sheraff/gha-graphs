@@ -26,8 +26,7 @@ jobs:
             const {main} = await import('${{ github.workspace }}/index.mjs')
             return main(
               {
-                github,
-                context,
+                github, context, core,
                 branch: 'action-storage',
                 key: 'toto'
               },
