@@ -271,22 +271,22 @@ function generateEvolutionSvg(data) {
 		const y = margin + i * lineSpacing
 		const value = max - (i * lineSpacing / yScale)
 		return `
-			<line class="grid-line" x1="${margin}" y1="${y}" x2="${width - margin}" y2="${y}" stroke="lightgray" />
-			<text class="grid-text" x="${margin - 10}" y="${y}" text-anchor="end" dominant-baseline="middle">${value.toFixed(2)}</text>
+			<line x1="${margin}" y1="${y}" x2="${width - margin}" y2="${y}" stroke="lightgray" />
+			<text x="${margin - 10}" y="${y}" text-anchor="end" dominant-baseline="middle">${value.toFixed(2)}</text>
 		`
 	})
 
 	const svg = `
-		<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}">
 			<style>
 				@media (prefers-color-scheme: dark) {
-					.grid-line { stroke: white; }
-					.grid-text { fill: white; }
-					.main-path { stroke: white; }
+					line { stroke: white; }
+					text { fill: white; }
+					path { stroke: white; }
 				}
 			</style>
 			${lines.join('\n')}
-			<path class="main-path" d="${path}" fill="none" stroke="black" stroke-width="2" />
+			<path d="${path}" fill="none" stroke="black" stroke-width="2" />
 		</svg>
 	`
 
