@@ -1,7 +1,7 @@
 
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500">
 			<style>
-				background: #ffffff;
+				svg { background: #ffffff; }
 				text {
 					fill: black;
 					font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -9,7 +9,7 @@
 				line { stroke: #d0d7de; }
 				path { stroke: black; }
 				@media (prefers-color-scheme: dark) {
-					background: #0d1117;
+					svg { background: #0d1117; }
 					line { stroke: #30363d; }
 					text { fill: white; }
 					path { stroke: white; }
@@ -20,17 +20,21 @@
 			<text x="40" y="50" text-anchor="end" dominant-baseline="middle">12.00</text>
 		
 
-			<line x1="50" y1="150" x2="950" y2="150" stroke="lightgray" />
-			<text x="40" y="150" text-anchor="end" dominant-baseline="middle">9.75</text>
+			<line x1="50" y1="130" x2="950" y2="130" stroke="lightgray" />
+			<text x="40" y="130" text-anchor="end" dominant-baseline="middle">10.20</text>
 		
 
-			<line x1="50" y1="250" x2="950" y2="250" stroke="lightgray" />
-			<text x="40" y="250" text-anchor="end" dominant-baseline="middle">7.50</text>
+			<line x1="50" y1="210" x2="950" y2="210" stroke="lightgray" />
+			<text x="40" y="210" text-anchor="end" dominant-baseline="middle">8.40</text>
 		
 
-			<line x1="50" y1="350" x2="950" y2="350" stroke="lightgray" />
-			<text x="40" y="350" text-anchor="end" dominant-baseline="middle">5.25</text>
+			<line x1="50" y1="290" x2="950" y2="290" stroke="lightgray" />
+			<text x="40" y="290" text-anchor="end" dominant-baseline="middle">6.60</text>
 		
-			<path d="M50,50L150,50L250,50L350,50L450,450L550,450L650,450L750,450L850,450L950,450" fill="none" stroke="black" stroke-width="2" />
+
+			<line x1="50" y1="370" x2="950" y2="370" stroke="lightgray" />
+			<text x="40" y="370" text-anchor="end" dominant-baseline="middle">4.80</text>
+		
+			<path d="M50,50L140,50L230,50L320,50L410,450L500,450L590,450L680,450L770,450L860,450L950,450" fill="none" stroke="black" stroke-width="2" />
 		</svg>
 	
