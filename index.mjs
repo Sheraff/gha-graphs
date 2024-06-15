@@ -101,14 +101,9 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 				format: 'text'
 			}
 		})
-		if (Array.isArray(data)) {
-			throw new Error(`Expected file, got directory`)
-		} else if (data.type === 'file') {
-			branchData = JSON.parse(Buffer.from(data.content, 'base64').toString())
-			sha = data.sha
-		} else {
-			throw new Error(`Expected file, got ${data.type}`)
-		}
+		const result = getFileContents(data)
+		branchData = JSON.parse(Buffer.from(result.content, 'base64').toString())
+		sha = result.sha
 	} catch (error) {
 		if (error.status !== 404) {
 			throw error
@@ -149,6 +144,24 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 		const evolutionPath = `.github/storage/graphs/${key}/${defaultBranch}-evolution.svg`
 		const evolutionMessage = `Update ${key} evolution graph`
 		const evolutionContent = Buffer.from(svg).toString('base64')
+		let sha = undefined
+		try {
+			const { data } = await github.rest.repos.getContent({
+				owner,
+				repo,
+				path: evolutionPath,
+				ref: branch,
+				mediaType: {
+					format: 'text'
+				},
+			})
+			const result = getFileContents(data)
+			sha = result.sha
+		} catch (error) {
+			if (error.status !== 404) {
+				throw error
+			}
+		}
 		await github.rest.repos.createOrUpdateFileContents({
 			owner,
 			repo,
@@ -180,13 +193,8 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 					format: 'text'
 				},
 			})
-			if (Array.isArray(data)) {
-				throw new Error(`Expected file, got directory`)
-			} else if (data.type === 'file') {
-				branchData = JSON.parse(Buffer.from(data.content, 'base64').toString())
-			} else {
-				throw new Error(`Expected file, got ${data.type}`)
-			}
+			const result = getFileContents(data)
+			branchData = JSON.parse(Buffer.from(result.content, 'base64').toString())
 		} catch (error) {
 			if (error.status !== 404) {
 				throw error
@@ -198,6 +206,24 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 				const comparisonPath = `.github/storage/graphs/${key}/${currentBranch}-comparison-percent.svg`
 				const comparisonMessage = `Update ${key} comparison graph`
 				const comparisonContent = Buffer.from(svg).toString('base64')
+				let sha = undefined
+				try {
+					const { data } = await github.rest.repos.getContent({
+						owner,
+						repo,
+						path: comparisonPath,
+						ref: branch,
+						mediaType: {
+							format: 'text'
+						},
+					})
+					const result = getFileContents(data)
+					sha = result.sha
+				} catch (error) {
+					if (error.status !== 404) {
+						throw error
+					}
+				}
 				await github.rest.repos.createOrUpdateFileContents({
 					owner,
 					repo,
@@ -272,4 +298,18 @@ function generateComparisonSvg(key, data, defaultData) {
 	`
 
 	return svg
+}
+
+
+/**
+ * @param {import('@octokit/rest').RestEndpointMethodTypes['repos']['getContent']['response']['data']} data
+ */
+function getFileContents(data) {
+	if (Array.isArray(data)) {
+		throw new Error(`Expected file, got directory`)
+	}
+	if (data.type !== 'file') {
+		throw new Error(`Expected file, got ${data.type}`)
+	}
+	return data
 }
