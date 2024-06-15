@@ -253,19 +253,32 @@ function generateEvolutionSvg(data) {
 	const width = 1000
 	const height = 500
 	const margin = 50
+	const lineSpacing = 100
 
 	const min = Math.min(...data.map(({ value }) => value))
 	const max = Math.max(...data.map(({ value }) => value))
 
-	const xScale = (width - 2 * margin) / (data.length - 1)
-	const yScale = (height - 2 * margin) / (max - min)
+	const xScale = data.length > 1 ? (width - 2 * margin) / (data.length - 1) : 1
+	const yScale = max !== min ? (height - 2 * margin) / (max - min) : 1
 
 	const points = data.map(({ value }, i) => `${margin + i * xScale},${height - margin - (value - min) * yScale}`)
 
 	const path = `M${points.join('L')}`
 
+	// Calculate the number of lines and generate an SVG line and text element for each one
+	const numLines = Math.floor((height - 2 * margin) / lineSpacing)
+	const lines = Array.from({ length: numLines }, (_, i) => {
+		const y = margin + i * lineSpacing
+		const value = max - i * lineSpacing * yScale
+		return `
+			<line x1="${margin}" y1="${y}" x2="${width - margin}" y2="${y}" stroke="lightgray" />
+			<text x="${margin - 10}" y="${y}" text-anchor="end" dominant-baseline="middle">${value.toFixed(2)}</text>
+		`
+	})
+
 	const svg = `
 		<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+			${lines.join('\n')}
 			<path d="${path}" fill="none" stroke="black" stroke-width="2" />
 		</svg>
 	`
