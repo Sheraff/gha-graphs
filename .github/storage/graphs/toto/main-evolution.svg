@@ -1,28 +1,28 @@
 
-		<svg width="1000" height="500" xmlns="http://www.w3.org/2000/svg">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500">
 			<style>
 				@media (prefers-color-scheme: dark) {
-					.grid-line { stroke: white; }
-					.grid-text { fill: white; }
-					.main-path { stroke: white; }
+					line { stroke: white; }
+					text { fill: white; }
+					path { stroke: white; }
 				}
 			</style>
 			
-			<line class="grid-line" x1="50" y1="50" x2="950" y2="50" stroke="lightgray" />
-			<text class="grid-text" x="40" y="50" text-anchor="end" dominant-baseline="middle">12.00</text>
+			<line x1="50" y1="50" x2="950" y2="50" stroke="lightgray" />
+			<text x="40" y="50" text-anchor="end" dominant-baseline="middle">12.00</text>
 		
 
-			<line class="grid-line" x1="50" y1="150" x2="950" y2="150" stroke="lightgray" />
-			<text class="grid-text" x="40" y="150" text-anchor="end" dominant-baseline="middle">9.75</text>
+			<line x1="50" y1="150" x2="950" y2="150" stroke="lightgray" />
+			<text x="40" y="150" text-anchor="end" dominant-baseline="middle">9.75</text>
 		
 
-			<line class="grid-line" x1="50" y1="250" x2="950" y2="250" stroke="lightgray" />
-			<text class="grid-text" x="40" y="250" text-anchor="end" dominant-baseline="middle">7.50</text>
+			<line x1="50" y1="250" x2="950" y2="250" stroke="lightgray" />
+			<text x="40" y="250" text-anchor="end" dominant-baseline="middle">7.50</text>
 		
 
-			<line class="grid-line" x1="50" y1="350" x2="950" y2="350" stroke="lightgray" />
-			<text class="grid-text" x="40" y="350" text-anchor="end" dominant-baseline="middle">5.25</text>
+			<line x1="50" y1="350" x2="950" y2="350" stroke="lightgray" />
+			<text x="40" y="350" text-anchor="end" dominant-baseline="middle">5.25</text>
 		
-			<path class="main-path" d="M50,50L178.57142857142858,50L307.14285714285717,50L435.7142857142858,50L564.2857142857143,450L692.8571428571429,450L821.4285714285716,450L950.0000000000001,450" fill="none" stroke="black" stroke-width="2" />
+			<path d="M50,50L162.5,50L275,50L387.5,50L500,450L612.5,450L725,450L837.5,450L950,450" fill="none" stroke="black" stroke-width="2" />
 		</svg>
 	
