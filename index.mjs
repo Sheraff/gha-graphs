@@ -279,8 +279,16 @@ function generateEvolutionSvg(data) {
 	const svg = `
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}">
 			<style>
+				background: #ffffff;
+				text {
+					fill: black;
+					font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+				}
+				line { stroke: #d0d7de; }
+				path { stroke: black; }
 				@media (prefers-color-scheme: dark) {
-					line { stroke: white; }
+					background: #0d1117;
+					line { stroke: #30363d; }
 					text { fill: white; }
 					path { stroke: white; }
 				}
