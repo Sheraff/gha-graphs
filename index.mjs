@@ -255,8 +255,6 @@ function generateEvolutionSvg(data) {
 	const margin = 50
 	const numberOfLines = 5
 
-	const lineSpacing = (height - 2 * margin) / numberOfLines
-
 	const min = Math.min(...data.map(({ value }) => value))
 	const max = Math.max(...data.map(({ value }) => value))
 
@@ -268,8 +266,8 @@ function generateEvolutionSvg(data) {
 	const path = `M${points.join('L')}`
 
 	// Calculate the number of lines and generate an SVG line and text element for each one
-	const numLines = Math.floor((height - 2 * margin) / lineSpacing)
-	const lines = Array.from({ length: numLines }, (_, i) => {
+	const lines = Array.from({ length: numberOfLines }, (_, i) => {
+		const lineSpacing = (height - 2 * margin) / (numberOfLines - 1)
 		const y = margin + i * lineSpacing
 		const value = max - (i * lineSpacing / yScale)
 		return `
