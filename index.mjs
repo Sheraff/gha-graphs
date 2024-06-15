@@ -37,8 +37,10 @@
 export async function main({ github, context, core, branch, defaultBranch, key = 'value' }, value) {
 	const { owner, repo } = context.repo
 
-	// Get the name of the current branch
-	const currentBranch = context.ref.replace('refs/heads/', '')
+	// Get the name of the current branch, even if it's a pull request
+	const currentBranch = context.payload.pull_request
+		? context.payload.pull_request.head.ref
+		: context.ref.replace('refs/heads/', '')
 
 	// Get the repo's default branch
 	if (!defaultBranch) {
@@ -194,7 +196,7 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 				},
 			})
 			const result = getFileContents(data)
-			branchData = JSON.parse(Buffer.from(result.content, 'base64').toString())
+			defaultData = JSON.parse(Buffer.from(result.content, 'base64').toString())
 		} catch (error) {
 			if (error.status !== 404) {
 				throw error
@@ -312,6 +314,7 @@ function generateEvolutionSvg(data) {
  */
 function generateComparisonSvg(key, data, defaultData) {
 	const latest = defaultData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).pop()
+	console.log({ latest })
 	if (!latest) return
 
 	const change = ((data.value - latest.value) / latest.value) * 100
