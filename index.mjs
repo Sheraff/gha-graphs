@@ -89,6 +89,8 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 	// Get contents of existing file
 	/** @type {ValueEntry[]} */
 	let branchData = []
+	/** @type {string|undefined} */
+	let sha = undefined
 	try {
 		const { data } = await github.rest.repos.getContent({
 			owner,
@@ -103,6 +105,7 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 			throw new Error(`Expected file, got directory`)
 		} else if (data.type === 'file') {
 			branchData = JSON.parse(Buffer.from(data.content, 'base64').toString())
+			sha = data.sha
 		} else {
 			throw new Error(`Expected file, got ${data.type}`)
 		}
@@ -135,6 +138,7 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 		message,
 		content,
 		branch,
+		sha
 	})
 
 	const isDefaultBranch = context.ref === `refs/heads/${defaultBranch}`
@@ -152,6 +156,7 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 			message: evolutionMessage,
 			content: evolutionContent,
 			branch,
+			sha,
 		})
 		const permalink = `https://github.com/${context.repo.owner}/${context.repo.repo}/blob/${branch}/${evolutionPath}`
 		console.log(`Evolution graph permalink: ${permalink}`)
@@ -173,7 +178,8 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 				ref: branch,
 				mediaType: {
 					format: 'text'
-				}
+				},
+				sha,
 			})
 			if (Array.isArray(data)) {
 				throw new Error(`Expected file, got directory`)
