@@ -129,7 +129,7 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 
 	// Create a new file / Update existing file
 	const message = `Add ${key} to ${path}`
-	const content = Buffer.from(JSON.stringify(branchData)).toString('base64')
+	const content = Buffer.from(JSON.stringify(branchData, null, '\t')).toString('base64')
 
 	await github.rest.repos.createOrUpdateFileContents({
 		owner,
@@ -179,7 +179,6 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 				mediaType: {
 					format: 'text'
 				},
-				sha,
 			})
 			if (Array.isArray(data)) {
 				throw new Error(`Expected file, got directory`)
@@ -205,6 +204,7 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 					content: comparisonContent,
 					message: comparisonMessage,
 					path: comparisonPath,
+					sha,
 				})
 				const permalink = `https://github.com/${context.repo.owner}/${context.repo.repo}/blob/${branch}/${comparisonPath}`
 				console.log(`Comparison graph permalink: ${permalink}`)
