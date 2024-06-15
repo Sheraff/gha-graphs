@@ -269,7 +269,7 @@ function generateEvolutionSvg(data) {
 	const numLines = Math.floor((height - 2 * margin) / lineSpacing)
 	const lines = Array.from({ length: numLines }, (_, i) => {
 		const y = margin + i * lineSpacing
-		const value = max - i * lineSpacing * yScale
+		const value = max - (i * lineSpacing / yScale)
 		return `
 			<line x1="${margin}" y1="${y}" x2="${width - margin}" y2="${y}" stroke="lightgray" />
 			<text x="${margin - 10}" y="${y}" text-anchor="end" dominant-baseline="middle">${value.toFixed(2)}</text>
