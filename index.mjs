@@ -142,7 +142,7 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 	// If current branch is the default branch, update the evolution file
 	if (isDefaultBranch) {
 		const svg = generateEvolutionSvg(branchData)
-		const evolutionPath = `'.github/storage/graphs/${key}/${defaultBranch}.svg'`
+		const evolutionPath = `.github/storage/graphs/${key}/${defaultBranch}-evolution.svg`
 		const evolutionMessage = `Update ${key} evolution graph`
 		const evolutionContent = Buffer.from(svg).toString('base64')
 		await github.rest.repos.createOrUpdateFileContents({
@@ -190,7 +190,7 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 		if (defaultData.length) {
 			const svg = generateComparisonSvg(key, entry, defaultData)
 			if (svg) {
-				const comparisonPath = `'.github/storage/graphs/${key}/${currentBranch}.svg'`
+				const comparisonPath = `.github/storage/graphs/${key}/${currentBranch}-comparison-percent.svg`
 				const comparisonMessage = `Update ${key} comparison graph`
 				const comparisonContent = Buffer.from(svg).toString('base64')
 				await github.rest.repos.createOrUpdateFileContents({
