@@ -1,8 +1,16 @@
 
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500">
 			<style>
+				background: #ffffff;
+				text {
+					fill: black;
+					font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+				}
+				line { stroke: #d0d7de; }
+				path { stroke: black; }
 				@media (prefers-color-scheme: dark) {
-					line { stroke: white; }
+					background: #0d1117;
+					line { stroke: #30363d; }
 					text { fill: white; }
 					path { stroke: white; }
 				}
@@ -23,6 +31,6 @@
 			<line x1="50" y1="350" x2="950" y2="350" stroke="lightgray" />
 			<text x="40" y="350" text-anchor="end" dominant-baseline="middle">5.25</text>
 		
-			<path d="M50,50L162.5,50L275,50L387.5,50L500,450L612.5,450L725,450L837.5,450L950,450" fill="none" stroke="black" stroke-width="2" />
+			<path d="M50,50L150,50L250,50L350,50L450,450L550,450L650,450L750,450L850,450L950,450" fill="none" stroke="black" stroke-width="2" />
 		</svg>
 	
