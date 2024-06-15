@@ -24,7 +24,7 @@ jobs:
         with:
           script: |
             const {main} = await import('${{ github.workspace }}/index.mjs')
-            return script(
+            return main(
               {
                 github,
                 context,
