@@ -253,7 +253,9 @@ function generateEvolutionSvg(data) {
 	const width = 1000
 	const height = 500
 	const margin = 50
-	const lineSpacing = 100
+	const numberOfLines = 5
+
+	const lineSpacing = (height - 2 * margin) / numberOfLines
 
 	const min = Math.min(...data.map(({ value }) => value))
 	const max = Math.max(...data.map(({ value }) => value))
@@ -279,7 +281,7 @@ function generateEvolutionSvg(data) {
 	const svg = `
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}">
 			<style>
-				background: #ffffff;
+				svg { background: #ffffff; }
 				text {
 					fill: black;
 					font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -287,7 +289,7 @@ function generateEvolutionSvg(data) {
 				line { stroke: #d0d7de; }
 				path { stroke: black; }
 				@media (prefers-color-scheme: dark) {
-					background: #0d1117;
+					svg { background: #0d1117; }
 					line { stroke: #30363d; }
 					text { fill: white; }
 					path { stroke: white; }
