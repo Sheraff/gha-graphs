@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Clone Repo
+        uses: actions/checkout@v4
+
       - name: some action that generates a value
         id: generate
         run: echo "some-value=12" >> $GITHUB_OUTPUT
