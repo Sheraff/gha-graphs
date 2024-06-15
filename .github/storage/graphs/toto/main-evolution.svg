@@ -6,16 +6,16 @@
 		
 
 			<line x1="50" y1="150" x2="950" y2="150" stroke="lightgray" />
-			<text x="40" y="150" text-anchor="end" dominant-baseline="middle">-4432.44</text>
+			<text x="40" y="150" text-anchor="end" dominant-baseline="middle">9.75</text>
 		
 
 			<line x1="50" y1="250" x2="950" y2="250" stroke="lightgray" />
-			<text x="40" y="250" text-anchor="end" dominant-baseline="middle">-8876.89</text>
+			<text x="40" y="250" text-anchor="end" dominant-baseline="middle">7.50</text>
 		
 
 			<line x1="50" y1="350" x2="950" y2="350" stroke="lightgray" />
-			<text x="40" y="350" text-anchor="end" dominant-baseline="middle">-13321.33</text>
+			<text x="40" y="350" text-anchor="end" dominant-baseline="middle">5.25</text>
 		
-			<path d="M50,50L230,50L410,50L590,50L770,450L950,450" fill="none" stroke="black" stroke-width="2" />
+			<path d="M50,50L200,50L350,50L500,50L650,450L800,450L950,450" fill="none" stroke="black" stroke-width="2" />
 		</svg>
 	
