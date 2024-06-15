@@ -197,7 +197,7 @@ export async function main({ github, context, core, branch, defaultBranch, key =
 				},
 			})
 			const result = getFileContents(data)
-			branchData = JSON.parse(Buffer.from(result.content, 'base64').toString())
+			defaultData = JSON.parse(Buffer.from(result.content, 'base64').toString())
 		} catch (error) {
 			if (error.status !== 404) {
 				throw error
